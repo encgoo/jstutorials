@@ -1,0 +1,41 @@
+<html>
+    <header>
+
+    </header>
+    <body>
+        Note, instead of using a script tag to load a source in header section, we use a script to add a script src to
+        this document.
+
+        Promise is used here. 
+        <script>
+            // Crate a promise based on loading script
+            let promise = new Promise(function(resolve, reject){
+                let script = document.createElement('script');
+                script.src = './asyncSource.js';
+                document.head.append(script);
+           
+                // onload
+                script.onload = () => {resolve(script)};
+                script.error = () => {reject(new Error('Failed'))};
+                document.head.append(script);
+                // end of promise
+                console.log("end of promise");
+            });
+            
+            // promise then takes two function pointers.
+            promise.then(
+                // first callback. This is linked to resolve above
+                (script) => {
+                    // if promise is normal
+                    // newFunction is ready
+                    newFunction();
+                },
+                // this is linked to reject above
+                (error) => {
+                    // promise failed
+                    console.log(error);
+                }
+            );
+        </script>
+    </body>
+</html>

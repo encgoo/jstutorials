@@ -1,0 +1,29 @@
+<html>
+    <header>
+
+    </header>
+    <body>
+        Note, instead of using a script tag to load a source in header section, we use a script to add a script src to
+        this document.
+        <script>
+            // create a new script 
+            let script = document.createElement('script');
+            script.src = './asyncSource.js';
+            document.head.append(script);
+            // can't call newFunction here because the script is loading in background, and not ready yet
+            // This will result i an error "Uncaught ReferenceError"
+            // newFunction();
+            
+            // use the onload callback
+            script.onload = () => {
+                newFunction();
+            };
+            // onerror callback
+            script.onerror = () => {
+                console.log("Some error");
+            }
+            // The following is in the main thread. 
+            console.log('end of script');
+        </script>
+    </body>
+</html>
