@@ -1,0 +1,11 @@
+<html>
+    <head>Contains a script that calls import directly</head>
+    NOTE the script tag needs to type='module'
+    <script type="module">
+        // Name is an export function in export.js
+        import {Name} from './export.js'
+        let name = Name();
+        console.log(name);
+    </script>
+
+</html>
