@@ -132,7 +132,7 @@ Inside an async function, we can await for a promise to settle. Check async with
 
 ## time-slicing
 Even though the above sounds like multi-threaded/parallel/concurrent, it is more like time-slicing. WHen promises are used, all the .then handlers are pushed into the Microtask queue. The caller (sync) function foo will be finished first, without getting into the .then handlers. Then the .then handlers in the microtasks queue will be executed one by one. This explains why the caller code 'after' the .then handler is _always_ executed first before the .then handler code, even if the promise takes no time to finish. The order here is deterministic, not like a real multi-threaded env. 
-```fs
+```js
 function foo(){
     const url = 'https://cnn.com';
     let prmse = fetch(url);

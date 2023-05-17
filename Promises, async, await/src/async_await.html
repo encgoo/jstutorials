@@ -47,7 +47,25 @@
             // When there is a sequence of async events, await can flatten the function. Instead of nested .then 
             // handlers, 
 
+            async function multiFetch() {
+                // Three nested promises. Instead of nested .then handles, three awaits are used. Then
+                // this function is pretty much flatten, without nested handlers.
+                const url = 'https://api.github.com/users/encgoo';
+                // first await
+                let resp = await fetch(url);
+                // second await. Is it necessary? awaiting for a sync function is ok. Might not be recommended.
+                let rjson = await resp.json();
+                // We need the reply from the first fetch to get the second one
+                const org_url = rjson.organizations_url;
+                console.log('Got org url: ' + org_url);
+                console.log(resp);
+                // Third await
+                resp = await fetch(org_url);
+                console.log('Got org info');
+                console.log(resp);
+            }
 
+            multiFetch();
 
         </script>
     </body>
