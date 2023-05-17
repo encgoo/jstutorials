@@ -1,0 +1,112 @@
+<html>
+    <header>
+
+    </header>
+    <body>
+        Note, instead of using a script tag to load a source in header section, we use a script to add a script src to
+        this document.
+        <script>
+            // 1. a function that uses callbacks
+            function loadScript(src, callbackNormal, callbackError){
+                // create a new script 
+                let script = document.createElement('script');
+                script.src = src; // './asyncSource.js';
+                document.head.append(script);
+
+                // script take time to load. It is async. We can call 
+                // newFunction yet.
+
+                // call callback only when 
+                script.onload = () => {
+                    callbackNormal();
+                }
+
+                script.onerror = () => {
+                    callbackError();
+                }
+            }
+
+            let scrScript = './asyncSource.js';
+
+            // We need to call loadScript with two callback
+            loadScript(scrScript,
+            // first callback. It takes no input argument
+            () => {
+                // This is a function only available when the page is loaded
+                newFunction();
+            },
+            // second callback. It is a function takes no input argument. Use arrow function
+            () => {
+                console.log('Error');
+            }
+            );
+
+
+            // 2. same thing done by promise directly
+            // Note: use arrow function to take context variable?
+            let promise = new Promise((resolve, reject) => {
+                let script = document.createElement('script');
+                // Even arrow function can't get the context/local variable. Need to 
+                // use "this"?
+                script.src = './asyncSource.js';
+                document.head.append(script);
+
+                // call callback only when 
+                script.onload = () => {
+                    resolve(script);
+                }
+
+                script.onerror = () => {
+                    reject(new Error('Failed'));
+                }
+            });
+
+            promise.then(
+                // then is a function with one input argument
+                (script) => {
+                    // new function is ready now
+                    console.log('newFunction shall be ready now');
+                    newFunction();
+                }
+            ).catch(
+                // catch is a function with one argument
+                (err) => {
+                    console.log(err);
+                }
+            );
+
+            // 3. Wrap the existing loadScript function. 
+            function promisify(func) {
+                // assuming that func is like our loadScript above
+                let ret = new Promise(function(resolve, reject){
+                    // How can we get src here?
+                    const scrScript = './asyncSource.js';
+                    loadScript(scrScript,
+                        // first callback shall call resolve
+                        function(){
+                            resolve('Bogus string');
+                        },
+                        function() {
+                            reject('Error');
+                        }
+                    )
+                });
+                return ret;
+            }
+
+            let prom = promisify(loadScript);
+
+            prom.then(
+                (str) => {
+                    console.log(str);
+                    newFunction();
+                }
+            ).catch(
+                (err) => {
+                    console.log(err);
+                }
+            )
+
+        </script>
+    </body>
+</html>

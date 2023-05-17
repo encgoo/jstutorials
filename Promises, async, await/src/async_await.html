@@ -1,0 +1,54 @@
+<html>
+    <header>
+
+    </header>
+    <body>
+        Note, instead of using a script tag to load a source in header section, we use a script to add a script src to
+        this document.
+        <script>
+            // even though an async returns a promise automatically, relying on its auto promise might not 
+            // be a good idea.
+            // 
+            // 1. An asycn function is good to handler other async functions.
+            // Like fetch. 
+            async function fetchUser(){
+                const url = 'https://api.github.com/users/encgoo';
+                let resp =  fetch(url);
+                console.log("This line executes immediately before fetch is done.");
+                return resp;
+            }
+            
+            let prom = fetchUser();
+
+            prom.then(
+                // Does it return an response?
+                (resp) => {
+                    console.log(resp);
+                }
+            )
+            console.log('This line is even first before the log above.');
+            
+            // 2. we can await inside the async
+            async function fetchAndWith(){
+                const url = 'https://api.github.com/users/encgoo';
+                // await
+                console.log('before await');
+                let resp = await fetch(url);
+                console.log("This line waits until fetch is done.")
+                console.log(resp);
+                return resp;
+            }
+
+            let resp = fetchAndWith();
+            console.log('Main thread only gets a Promise even when await is used: ' + resp);
+            // In some sense, with await, the then handler can be moved into the async function. That is the 
+            // only different with/without await. 
+
+            // When there is a sequence of async events, await can flatten the function. Instead of nested .then 
+            // handlers, 
+
+
+
+        </script>
+    </body>
+</html>
