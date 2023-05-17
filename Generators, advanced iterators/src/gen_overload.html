@@ -1,0 +1,50 @@
+<html>
+    <head>Symbol Iterator Operator Overload</head>
+
+    <script>
+        // It needs to be an Object? Not a function?
+        let range = {
+            from: 1,
+            to: 5,
+            [Symbol.iterator](){
+                // return an object
+                return {
+                    current: this.from, // why?
+                    last: this.to,
+                    // need a next function
+                    next() {
+                        if (this.current <= this.last) {
+                            return {don:false, value: this.current++};
+                        } else {
+                            return {done:true};
+                        }
+                    }
+                };
+            }
+        };
+
+        // iterables can be used in for loop
+        // _NOTE_ (let i in range) goes through the keys of a Symbol, not 
+        // iterating through an iteratable. 
+        for (let i of range){
+            console.log(i);
+        }
+
+        // Use generator is simpler for iterable
+        let rangeGen = {
+            // It is again an Object
+            from: 1,
+            to: 5,
+            // [Symbol.next] is a generator function this time, using *
+            * [Symbol.iterator](){
+                for (let i=this.from; i<=this.to; ++i){
+                    yield i;
+                }
+            }
+        }
+
+        for (let v of rangeGen){
+            console.log(v);
+        }
+    </script>
+</html>

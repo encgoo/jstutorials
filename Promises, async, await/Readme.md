@@ -146,6 +146,7 @@ function foo(){
 ```
 JS in a browser env is event driven. Async means it is waiting for another event. So in some sense, a sync function is also an event handler. It might be in the Microtasks queue as well. The difference between sync/async functions is that the former one tells the caller that it handles everything, nothing else to worry about. The latter one says there are .then/.catch events to handle later on. 
 
+So async in JS means "I will come _back_ to this", instead of "doing it at the same time"
 
 
 

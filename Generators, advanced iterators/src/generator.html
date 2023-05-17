@@ -1,0 +1,28 @@
+<html>
+    <header>
+        Generator
+    </header>
+
+    <body>
+        <h1> Generator and Generator function</h1>
+        <script>
+            function* getValues(){
+                console.log('Enter function');
+                yield 1;
+                console.log('tick');
+                yield 2;
+                console.log('tick');
+                yield 3;
+
+                return 4;
+            }
+            console.log('Before calling function');
+            let generator = getValues();
+            console.log("before iterating");
+            for (let val of generator){
+                console.log('iterating');
+                console.log(val);
+            }
+        </script>
+    </body>
+</html>
