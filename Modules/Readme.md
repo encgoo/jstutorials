@@ -109,3 +109,42 @@ Remember use `import {} from` for named exports, and `import from ` for `export 
 ## import function?
 `import(path_to_js)` returns a promise, because it takes time to import. 
 
+# Special Note about require
+Keywords require/define come from RequireJS and is used by Node.js.
+
+## tutorial
+Following [this](https://www.tutorialspoint.com/requirejs/requirejs_environment_setup.htm). 
+
+## setup
+To use require, we need the require.js. It can be [donwloaded](https://requirejs.org/docs/download.html#rjs). The downloaded js file is saved [here](./requirejs/require.js).
+
+## load require.js
+There are two ways to load require.js.
+
+### data-domain
+Use the data-domain attribute of the script tag. See sample [html](requirejs/datamain.html).
+```html
+    <script data-main="./main.js" src="./require.js"></script>
+```
+The main.js is a function. But doing the above, this function will be execuated.
+```js
+define(['./phonebook.js'], function(Phonebook){
+    console.log('Name: ' + Phonebook.Name);
+});
+```
+### load require.js first
+See this sample [html](requirejs/separate.html). Note here two js are loaded _in order_.
+```html
+        <script src="./require.js"> </script>
+        <script src="./main.js"></script>
+```
+By doing so, the funciton in main.js is NOT called automatically. Still need to explicitly call it. Also because of this, the function can't be anonymous. Give it a name so we can call it from the html file.
+```js
+define('log', ['./phonebook.js'], function(Phonebook){
+    console.log('Name: ' + Phonebook.Name);
+});
+```
+
+
+
+
