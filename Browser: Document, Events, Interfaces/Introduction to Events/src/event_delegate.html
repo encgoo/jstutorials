@@ -1,0 +1,42 @@
+<html>
+
+    <head>
+        <script>
+            let selected;
+            function handleClick(event){
+                // This is where it starts
+                let target = event.target;
+                // check its tagName
+                if (target.tagName != 'TD')
+                    return;
+                
+                // reset previous
+                if (selected){
+                    selected.classList.remove('highlight');
+                    selected.style.background = 'white';
+                }
+                selected = target;
+                selected.classList.add('highlight');
+                selected.style.background = 'red';
+            }
+        </script>
+    </head>
+    <h1>Event delegate</h1>
+    <div>
+        This page contains a table. We want to change the background of a cell of this table when it is clicked.
+        All the cells in this table share the same onclick handler. So it will be put into the common ancestor, the table.
+    </div>
+    <table onclick="handleClick(event);">
+        <tr>
+            <th> Header 1</th>
+            <th> Header 2</th>
+            <th> Header 3</th>
+        </tr>
+        <tr>
+           <td> 1 </td>
+           <td> 2 </td>
+           <td> 3 </td>
+        </tr>
+
+    </table>
+</html>
