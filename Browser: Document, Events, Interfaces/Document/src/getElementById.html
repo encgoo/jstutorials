@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <script type="text/javascript">
+            // element obtained by getElementById is only available after page loaded
+            window.onload = () => {
+                let eles = document.getElementById("banana");
+                eles.style.background = 'blue';
+                let ele = document.getElementById('apple');
+                ele.style.background = 'red';
+            };
+        </script>
+    </head>
+    <body>
+        <h1>One element with ID = apple, and two with ID = banana</h1>
+        HTML has no problem with that
+        <div id="apple">Div with ID = apple</div>
+        <div id="banana">Div with ID = banana</div>
+        <p id="banana">paragraph with ID = banana</p>
+    </body>
+</html>
