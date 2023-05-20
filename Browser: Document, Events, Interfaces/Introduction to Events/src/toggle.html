@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <script>
+            function hideToggle(event){
+                const target = event.target;
+                let id = target.dataset.toggleId;
+                if (!id) return;
+
+                let ele = document.getElementById(id);
+                ele.hidden = !ele.hidden;
+                console.log(ele.hidden);
+            }
+
+            // add
+            document.addEventListener('click', hideToggle);
+        </script>
+    </head>
+    <body>
+        <div>
+        THe button has a attribute that points to the element it wants to toggle.
+        <button data-toggle-id="form-toggle">show/hide form</button>
+        </div>
+        <div>    
+        The form has the id as referred by the button.
+        <form id="form-toggle">
+            your mail: <input type="email">
+        </form>
+        </div>
+    </body>
+</html>

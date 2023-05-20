@@ -63,6 +63,58 @@ It is a method of an element inside the HTML DOM. It query using the given CSS s
 
 # Node properties: type, tag and contents
 
+## DOM node classes
+Different types of nodes have different properties. They also share common properties and methods. 
+
+* The top most super class is EventTarget. It is an abstract class
+* Node: This is also an abstract class. It is a tree node, and it implements tree functionality
+    * parentNode, nextSibling, and childNodes
+* Docoment
+* CharacterData is a subclass of Node. It is abstract. Inherited by
+    * Text
+    * Comment
+* Element is a subclass of Node as well.
+    * nextElementSibling, 
+    * children
+    * getElementByTagName
+    * querySelector
+* HTMLElement is a subclass of Element
+
+### The nodeType property
+
+### innerHTML: the contents
+
+_NOTE_: if innerHTML insert a script tag into the document, the script doesn't execute automatically.
+
+If innerHTML is added, the whole page will be refreshed?
+
+### outerHTML: full HTML of the element
+
+### nodeValue/data: text node content
+
+### textContent: pure text
+
+### The hidden property
+Set `ele.hidden = true` can hide the element.
+
+### Other properties
+
+# Attributes and properties
+
+## DOM properties
+DOM nodes are regular JS objects. Data and methods can be added to them.
+
+## HTML attributes
+Element has these methods:
+* hasAttribute(name)
+* getAttribute(name)
+* setAttribute(name, value)
+* remoreAttribute(name)
+_NOTE_: Attribute names are case insensitive. 
+
+## Property-attribute synchronization
+
+## DOM properties are typed
 
 
-
+# Modifying the document

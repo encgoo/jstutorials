@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <script>
+            function counterHandler(event){
+                const target = event.target;
+                if (target.dataset.counter != undefined){
+                    target.value++;
+                    console.log(target.value);
+                }
+            }
+            document.addEventListener('click', counterHandler);
+        </script>
+    </head>
+    <body>
+        Counter 1: <input type="button" value="1" data-counter/>
+        Counter 2: <input type="button" value="1" data-counter/>
+    </body>
+
+</html>

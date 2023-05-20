@@ -69,7 +69,17 @@ Normally it is _not_ a good idea to stop bubbling unless there is a very good re
 [TBD]
 
 # Event delegation
+Since an event bubbles up, if elements share a same even handler, a single handler can be added to the common ancestor of all the elements. 
 
+[Example](src/event_delegate.html). One drawback is that if a table cell has a child, then the click might be initiated from the child, not the cell. Then the above hanlder won't work. There is a way to fix it. 
+
+## Delegation example: actions in markup
+If we have a menu of several buttons, we can have one handler for each button. Or we can have one a single handler for all the buttons. See this [example](./src/buttons.html).
+
+## The "behavior" pattern
+It is similar to the example above. Use a specific attribute the label an element or elements. Then use a global handler at the document level to handle the event of it or them.
+
+For [example](./src/counter.html), buttons behaves as counters.
 
 # Browser default actions
 

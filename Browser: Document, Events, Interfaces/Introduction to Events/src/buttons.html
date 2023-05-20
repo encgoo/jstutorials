@@ -1,0 +1,45 @@
+<html>
+
+    <head>
+        <script>
+            function btnHandler(event){
+                const target = event.target;
+                // Why all capitals?
+                if (target.tagName != 'BUTTON'){
+                    // Nothing to do, not a button being clicked
+                    return;
+                }
+                // delegate
+                let btn_action = target.getAttribute('btn-action');
+                if (btn_action == 'Save'){
+                    Save();
+                }
+                if (btn_action == 'Load'){
+                    Load();
+                }
+                if (btn_action == 'Search'){
+                    Search();
+                }
+            }
+            function Save(){
+                alert('Save');
+            }
+            function Search(){
+                alert('Search');
+            }
+            function Load(){
+                alert('Load');
+            }
+        </script>
+    </head>
+
+    <body>
+        <h1>A Div with buttons</h1>
+        Put a single handler for the div.
+        <div onclick="btnHandler(event);">
+            <button btn-action="Save">Save</button>
+            <button btn-action="Load">Load</button>
+            <button btn-action="Search">Search</button>
+        </div>
+    </body>
+</html>
