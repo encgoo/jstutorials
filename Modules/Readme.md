@@ -136,14 +136,15 @@ define(['./phonebook.js'], function(Phonebook){
 See this sample [html](requirejs/separate.html). Note here two js are loaded _in order_.
 ```html
         <script src="./require.js"> </script>
-        <script src="./main.js"></script>
+        <script src="./main1.js"></script>
 ```
 By doing so, the funciton in main.js is NOT called automatically. Still need to explicitly call it. Also because of this, the function can't be anonymous. Give it a name so we can call it from the html file.
 ```js
-define('log', ['./phonebook.js'], function(Phonebook){
+require(['./phonebook.js'], function(Phonebook){
     console.log('Name: ' + Phonebook.Name);
 });
 ```
+In some sense, require is similar to import, and declare is both import and export. 
 
 
 
