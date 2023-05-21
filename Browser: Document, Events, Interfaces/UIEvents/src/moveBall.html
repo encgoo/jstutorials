@@ -1,0 +1,147 @@
+<html>
+    <head>
+        <style>
+            #gate {
+                cursor: pointer;
+                margin-bottom: 100px;
+                width: 83px;
+                height: 46px;
+              }
+              
+              #ball {
+                cursor: pointer;
+                width: 40px;
+                height: 40px;
+              }
+        </style>
+        <script>
+            function enterDroppable(ele){
+                ele.style.background = 'lightblue';                
+            }
+
+            function leaveDroppable(ele){
+                ele.style.background = '';
+            }
+            // These two are computed in onmousedown, and they are needed in onmousemove. One way is to make it 
+            // global. 
+            let shiftX = 0;
+            let shiftY = 0;
+            function onMouseDown(event){
+                console.log('Mouse down');
+                const ball = event.target;
+                // compute coordinate delta. Note event has clientX and clientY
+                shiftX = event.clientX - ball.getBoundingClientRect().left;
+                shiftY = event.clientY - ball.getBoundingClientRect().top;
+
+                // Need to use absolute position
+                ball.style.position = 'absolute';
+                ball.style.zIndex = 1000; // keep it on top of the layers.
+
+                // Note, this creates a new copy and append to the document.
+                //
+                // Note, during one single drag-and-drop, mouse down only happens once
+                // so for each drag-and-drop, a single copy will be copied and append.
+                //document.body.append(ball);
+
+                // relocate
+                ball.style.left = event.pageX - shiftX + 'px';  // convert back to string
+                ball.style.top = event.pageY - shiftY + 'px';   // convert back to string
+
+                let currentDroppable = null;
+
+                // Need to set mousemove for documnet
+                document.onmousemove = (event) => {
+                    // Task 1
+                    // Need to update the pos of the soccer ball when mouse is moving.
+                    ball.style.left = event.pageX - shiftX + 'px';  // convert back to string
+                    ball.style.top = event.pageY - shiftY + 'px';   // convert back to string
+
+                    // Task 2 (optional)
+                    // highlight the dropable elements benearth
+                    ball.hidden = true;
+                    // Find the element at the current mouse point.
+                    const elemBelow = document.elementFromPoint(event.clientX, event.clientY);
+                    ball.hidden = false;
+
+                    if (!elemBelow){
+                        // nothing below
+                        return;
+                    }
+
+                    // Find the closest/topmost droppable
+                    let droppableBelow = elemBelow.closest('.droppable');
+                    if (droppableBelow != currentDroppable){
+                        // Need refresh
+                        if (currentDroppable){
+                            leaveDroppable(currentDroppable);
+                        }
+                        currentDroppable = droppableBelow;
+                        if (currentDroppable){
+                            enterDroppable(currentDroppable)
+                        }
+                    }
+                }
+
+                // set its mouseup HERE
+                ball.onmouseup = () => {
+                    document.onmousemove = null;
+                    ball.onmouseup = null;
+                }
+
+                document.onmouseup = () => {
+                    console.log('mouse up');
+                    document.onmousemove = null;
+                    ball.onmouseup = null;
+                }
+            }
+
+            function onMouseMove(event){
+
+            }
+
+            window.onload = () => {
+                let ball = document.getElementById('ball');
+                // onmousedown is the same as addEventListener('mousedown')
+                // ball.onmousedown = onMouseDown;
+                ball.addEventListener('mousedown', onMouseDown);
+
+                // The browser has its default drag and drop behavior. Disable it.
+                ball.ondragstart = () => {
+                    return false;
+                }
+
+
+            }
+
+
+        </script>
+    </head>
+    <body>
+        <h1>Some css</h1>
+        The size of the ball and the gate are defined in the css style section.
+
+
+        <h1>Ball and gate images</h1>
+        <p>
+        The ball and the gate are just images, src pointing to something from internet.
+        </p>
+        <p>
+        NOTE in the style, the gate has a margin-bottom 
+        as 100. This generates the veritcal distance between the gate and the ball. Other than this, the init positions of these
+        two images are pretty random.
+        </p>
+        <p>
+            Use JS script to handle DND:
+        </p>
+        <h1> script for the soccer</h1>
+        Need the mousedown event.
+
+        <h2>Images</h2>
+        <img src="https://en.js.cx/clipart/soccer-gate.svg" id="gate" class="droppable">
+        <img src="https://en.js.cx/clipart/ball.svg" id="ball">
+      
+
+
+    </body>
+
+</html>
