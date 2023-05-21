@@ -1,0 +1,57 @@
+<html>
+    <head>
+        <style>
+            .menu li {
+            display: inline-block;
+            margin: 0;
+            }
+
+            .menu > li a {
+            display: inline-block;
+            margin: 0 2px;
+            outline: none;
+            text-align: center;
+            text-decoration: none;
+            font: 14px/100% sans-serif;
+            padding: .5em 2em .55em;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, .3);
+            border-radius: .5em;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+            color: #d9eef7;
+            border: solid 1px #0076a3;
+            background: #2ea9df;
+            }
+
+            .menu > li:hover a {
+            text-decoration: none;
+            background: #007ead;
+            }            
+        </style>
+        <script>
+            // document.onload is reserved but never called. It is window.onload
+            window.onload = () => {
+                let menu = document.getElementById('menu');
+                menu.onclick = (event) => {
+                    // make sure it is a <a
+                    const target = event.target;
+                    // always capital
+                    if (target.tagName != 'A') {
+                        return;
+                    }
+                    const href = target.getAttribute('href');
+                    console.log(href);
+                    
+                    // prevent browser default handler
+                    return false;
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <ul class="menu" id="menu">
+            <li><a href="Apple">Apple</a></li>
+            <li><a href="Banana">Banana</a></li>
+            <li><a href="Cantaloupe">Cantaloupe</a></li>
+        </ul>
+    </body>
+</html>

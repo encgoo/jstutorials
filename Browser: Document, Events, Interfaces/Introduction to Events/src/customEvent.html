@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <script>
+            function toggleDesc(event){
+                // button is click. Dispatch a custom event. NOTE: Need to bubbles to the top
+                // since we are going to catch it in document.
+                let evnt = new Event('toggle', {bubbles: true});
+                event.target.dispatchEvent(evnt);
+            }
+
+            function handleToggle(event){
+                // Need to check event target
+                const target = event.target;
+                // NOTE getAttribute returns a string, even though it is set as a string.
+                target.setAttribute('showingLong', target.getAttribute('showingLong') != 'true');
+                const longDesc = document.getElementById('longDesc');
+                const shortDesc = document.getElementById('shortDesc');
+                if (target.getAttribute('showingLong') == 'true'){
+                    longDesc.hidden = false;
+                    shortDesc.hidden = true;
+                }
+                else {
+                    shortDesc.hidden = false;
+                    longDesc.hidden = true;
+                }
+            }
+            window.onload = () =>{
+                // NOTE we put the button as child of descField, so we can handle an event from
+                // descField
+                const descField = document.getElementById('descFields');
+                descField.addEventListener('toggle', function(event){
+                    handleToggle(event);
+                });
+            }
+        </script>
+    </head>
+    <body>
+        <h1>Custom Event</h1>
+        <div>Create a custom Toggle event. A button called toggle dispatches this toggle event. Two divs (explanation field) 
+            handles this event.
+        </div>
+        <h1> Explanations</h1>
+        <div id="descFields">
+            Note that we use a single handler to handle both. So the handler is added for the parent.
+            <div id="longDesc">Long descriptions:</div>
+            <div id="shortDesc">Short description: </div>
+            <button id="btn" onclick="toggleDesc(event);" showingLong=true>Toggle Description</button>
+        </div>
+    </body>
+</html>
