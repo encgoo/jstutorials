@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <script>
+            function domReady(event){
+                let img = document.getElementById("theImage");
+                console.log("The image size is: " + img.offsetWidth + "x" + img.offsetHeight);
+            }
+            function domLoaded(event){
+                let img = document.getElementById("theImage");
+                console.log("The image size is: " + img.offsetWidth + "x" + img.offsetHeight);
+            }
+            // There is _NO_ document.onDOMContentLoaded
+            document.addEventListener('DOMContentLoaded', domReady);
+            // it is onload of window, not document
+            window.onload = domLoaded;
+            // it is onunload of window.
+            window.onbeforeunload = function(){
+                return "Are you sure?";
+            };
+            window.addEventListener("unload", ()=>{
+                alert('Are you sure?');
+            });
+        </script>
+    </head>
+    <body>
+        <p>
+            NOTE: a page with cache=0. So it takes time to download.
+        </p>
+        <img  id="theImage" src="https://en.js.cx/clipart/train.gif?speed=1&cache=0">
+    </body>
+</html>

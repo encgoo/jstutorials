@@ -55,6 +55,7 @@ DND is a great interface solution.
 Here is an [example](src/moveBall.html).
 
 # Pointer events
+For mouse/pen/stylus/touchscreen.
 
 # Keyboard: keydown and keyup
 

@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <script>
+            function formsubmit(event){
+                let url = 'https://google.com/search';
+                const q1 = document.getElementById('q1');
+                const q2 = document.getElementById('q2');
+                url += '?q=' + q1.value + '+OR+' + q2.value;
+
+                // forward 
+                window.location.assign(url);
+            }
+            function donothing(event){
+                console.log('submit');
+                return false;
+            }
+        </script>
+    </head>
+    <body>
+        <h1>A normal form with submit</h1>
+        <ul>
+            <li>The action field of the form is an URL, for exmaple https://google.com/search.</li>
+            <li>The method is either "GET" or "POST"</li>
+            <li>The input text needs a name. For example here name="q"</li>
+            <li>When submit, URL?_name_=_value_ will be forwared.</li>
+        </ul>
+        <form action="https://google.com/search" method="GET">
+            <input type="text" name="q">
+            <input type="submit" value="Google Search">
+        </form>
+        <h1>Implement own submit for form</h1>
+        <p>Implement its onsumbit call. Remember to return false to stop bubbling.</p>
+        <p>This works _after_ opening the developer tool.</p>
+        <form onsubmit="donothing(event);">
+            <input type="text" id="q1" value="apple"> or
+            <input type="text" id="q2" value="banana">
+            <input type="submit" value="Google Search" onclick="formsubmit(event);">
+        </form>
+    </body>
+</html>
